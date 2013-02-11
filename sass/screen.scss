@@ -1,6 +1,184 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+@import "compass";
 
-@import "compass/reset";
+// Variables
+$link-color: rgb(66, 147, 192);   // Soft blue
+$max-width: 980px;
+$wide: "screen and (min-width: " + $max-width + ")";
+$not-wide: "screen and (max-width: " + $max-width + ")";
+
+// General
+*
+{
+   @include box-sizing(border-box);
+}
+
+body
+{
+   background-color: #0F0E0C;  // Off-black
+   color: white;
+}
+
+.container
+{
+   margin: 0 auto;
+   padding: 1em;
+   padding-right: 70px;
+
+   width: 100%;
+   max-width: $max-width;
+}
+
+h1, h2, h3
+{
+   color: $link-color;
+}
+h1
+{
+   margin-top: 2em;
+   margin-bottom: 0;
+}
+
+// Navigation
+nav
+{
+   @media #{$not-wide}
+   {
+      text-align: center;
+      margin: 0.5em 0;
+   }
+
+   ul
+   {
+      @include inline-block-list;
+
+      li
+      {
+         text-align: center;
+
+         a
+         {
+            @include unstyled-link;
+            @include link-colors(white, $link-color, $link-color, white, $link-color);
+
+            padding: 0 1em;
+            font-weight: bold;
+            font-size: 12pt;
+         }
+
+         @media #{$wide}
+         {
+            //margin: 0 2.15em;
+            margin: 0 1.85em;
+            &:first-child { margin-left: 0; }
+            &:last-child { margin-right: 0; }
+
+            a { padding: 0; };
+         }
+      }
+   }
+}
+
+// Banner
+.banner
+{
+   img
+   {
+      display: block;
+      width: 100%;
+   }
+}
+
+// Main content
+.main
+{
+   position: relative;
+
+   .logo
+   {
+      position: absolute;
+      top: 0;
+      right: -70px;
+   }
+
+   .content
+   {
+      background-color: #FBFBFB;   // Off-white
+      color: black;
+      padding: 2em 3em;
+      font-size: 85%;
+      @include clearfix;
+   }
+}
+
+@media #{$wide}
+{
+   .lot-layouts-image, .map
+   {
+      float: right;
+   }
+}
+@media #{$not-wide}
+{
+   .lot-layouts-image, .map img
+   {
+      width: 80%;
+      display: block;
+      margin: 0 auto;
+   }
+   .lot-layouts-image { max-width: 600px; }
+   .map img { max-width: 700px; }
+}
+
+.feature-list > li { @include no-bullet; }
+.feature-list { padding: 0; }
+@media #{$wide}
+{
+   .feature-list > li
+   {
+      display: inline-block;
+      vertical-align: top;
+      width: 29%;
+      //padding: 1em;
+      margin: 1em;
+      //outline: 1px solid red;
+   }
+   .decorator-options
+   {
+      float: right;
+   }
+   .decorator-options li
+   {
+      font-weight: bold;
+      font-size: 85%;
+      margin: 1em 0;
+   }
+}
+
+footer
+{
+   color: $link-color;
+   margin-top: 1em;
+
+   .contant-line { float: left; text-align: left; }
+   .company-line { float: right; text-align: right; }
+
+   .copyright-line
+   {
+      color: #333;
+      font-size: 85%;
+      display: block;
+      clear: both;
+      text-align: center;
+      margin-top: 1em;
+   }
+
+   h2
+   {
+      text-align: right;
+      margin: 0;
+
+      font-family: Qwigley, cursive, serif;
+      font-weight: normal;
+      font-size: 350%;
+   }
+}
