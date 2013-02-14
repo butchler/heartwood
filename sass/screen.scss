@@ -3,8 +3,6 @@
 // Variables
 $link-color: rgb(66, 147, 192);   // Soft blue
 $max-width: 980px;
-$wide: "screen and (min-width: " + $max-width + ")";
-$not-wide: "screen and (max-width: " + $max-width + ")";
 
 // General
 *
@@ -24,8 +22,7 @@ body
    padding: 1em;
    padding-right: 70px;
 
-   width: 100%;
-   max-width: $max-width;
+   width: $max-width;
 }
 
 h1, h2, h3
@@ -41,11 +38,7 @@ h1
 // Navigation
 nav
 {
-   @media #{$not-wide}
-   {
-      text-align: center;
-      margin: 0.5em 0;
-   }
+   margin-top: 10em;
 
    ul
    {
@@ -55,24 +48,18 @@ nav
       {
          text-align: center;
 
+         margin: 0 1.85em;
+         &:first-child { margin-left: 0; }
+         &:last-child { margin-right: 0; }
+
          a
          {
             @include unstyled-link;
             @include link-colors(white, $link-color, $link-color, white, $link-color);
 
-            padding: 0 1em;
+            padding: 0;
             font-weight: bold;
-            font-size: 12pt;
-         }
-
-         @media #{$wide}
-         {
-            //margin: 0 2.15em;
-            margin: 0 1.85em;
-            &:first-child { margin-left: 0; }
-            &:last-child { margin-right: 0; }
-
-            a { padding: 0; };
+            font-size: 16px;
          }
       }
    }
@@ -110,50 +97,55 @@ nav
    }
 }
 
-@media #{$wide}
+// Lot Layouts
+.lot-layouts-image, .map
 {
-   .lot-layouts-image, .map
-   {
-      float: right;
-   }
-}
-@media #{$not-wide}
-{
-   .lot-layouts-image, .map img
-   {
-      width: 80%;
-      display: block;
-      margin: 0 auto;
-   }
-   .lot-layouts-image { max-width: 600px; }
-   .map img { max-width: 700px; }
+   float: right;
 }
 
-.feature-list > li { @include no-bullet; }
+// Features
 .feature-list { padding: 0; }
-@media #{$wide}
+.feature-list > li
 {
-   .feature-list > li
-   {
-      display: inline-block;
-      vertical-align: top;
-      width: 29%;
-      //padding: 1em;
-      margin: 1em;
-      //outline: 1px solid red;
-   }
-   .decorator-options
-   {
-      float: right;
-   }
-   .decorator-options li
-   {
-      font-weight: bold;
-      font-size: 85%;
-      margin: 1em 0;
-   }
+   @include no-bullet;
+   display: inline-block;
+   vertical-align: top;
+   width: 29%;
+   margin: 1em;
+}
+.feature-list h3
+{
+   color: black;
+   font-size: 100%;
+   font-weight: bold;
+   text-decoration: underline;
+}
+.decorator-options
+{
+   float: right;
+}
+.decorator-options li
+{
+   font-weight: bold;
+   font-size: 85%;
+   margin: 1em 0;
+}
+.decorator-options h3
+{
+   color: $link-color;
+   font-size: 250%;
+   font-family: Qwigley, sans-serif;
+   font-weight: normal;
+   text-decoration: none;
+   margin: 0;
+}
+.features .key
+{
+   font-size: 85%;
+   font-weight: bold;
 }
 
+// Footer
 footer
 {
    color: $link-color;
