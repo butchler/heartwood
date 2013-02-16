@@ -14,6 +14,7 @@ body
 {
    background-color: #0F0E0C;  // Off-black
    color: white;
+   line-height: 1.5em;
 }
 
 .container
@@ -41,10 +42,10 @@ nav
    {
       @include inline-block-list;
 
+      text-align: center;
+
       li
       {
-         text-align: center;
-
          margin: 0 1.85em;
          &:first-child { margin-left: 0; }
          &:last-child { margin-right: 0; }
@@ -101,25 +102,27 @@ nav
 }
 
 // Lot Layouts
-.lot-layouts-image, .map
+.lot-layouts-image
 {
    float: right;
+   width: 100%;
+   max-width: 500px;
+   margin-left: 2em;
+   margin-bottom: 2em;
 }
 
 // Directions
 .map
 {
-   width: 60%;
-   float: right;
+   @extend .lot-layouts-image;
    text-align: center;
-   margin-left: 2em;
-   margin-bottom: 2em;
 }
 .map img
 {
    display: block;
    margin: 0 auto;
    margin-top: 2em;
+   width: 100%;
 }
 
 // Features
@@ -139,24 +142,27 @@ nav
    font-weight: bold;
    text-decoration: underline;
 }
-.decorator-options
+@media (min-width: $max-width)
 {
-   float: right;
-}
-.decorator-options li
-{
-   font-weight: bold;
-   font-size: 85%;
-   margin: 1em 0;
-}
-.decorator-options h3
-{
-   color: $link-color;
-   font-size: 250%;
-   font-family: Qwigley, sans-serif;
-   font-weight: normal;
-   text-decoration: none;
-   margin: 0;
+   .decorator-options
+   {
+      float: right;
+   }
+   .decorator-options li
+   {
+      font-weight: bold;
+      font-size: 85%;
+      margin: 1em 0;
+   }
+   .decorator-options h3
+   {
+      color: $link-color;
+      font-size: 250%;
+      font-family: Qwigley, sans-serif;
+      font-weight: normal;
+      text-decoration: none;
+      margin: 0;
+   }
 }
 .features .key
 {
@@ -170,12 +176,13 @@ footer
    color: $link-color;
    margin-top: 1em;
 
-   .contant-line { float: left; text-align: left; }
+   .contact-line { float: left; text-align: left; }
    .company-line { float: right; text-align: right; }
 
    .copyright-line
    {
       color: #333;
+      color: #444;
       font-size: 85%;
       display: block;
       clear: both;
@@ -191,24 +198,83 @@ footer
       font-family: Qwigley, cursive, serif;
       font-weight: normal;
       font-size: 350%;
+      line-height: 1em;
    }
 }
 
-// Smoothly transition to a section when the .current-section class is applied to it.
-.smooth-transitions .main section
+// Only enable smooth transitions when the window > $max-width.
+@media (min-width: $max-width)
 {
-   // Hide all sections by default.
-   opacity: 0;
-   position: absolute;
-   left: -9999em;
-   top: -9999em;
+   // Smoothly transition to a section when the .current-section class is applied to it.
+   .smooth-transitions .main section
+   {
+      // Hide all sections by default.
+      opacity: 0;
+      position: absolute;
+      left: -9999em;
+      top: -9999em;
 
-   margin-bottom: 0;
+      margin-bottom: 0;
+   }
+   .smooth-transitions .main section.current-section
+   {
+      // Fade in the current section.
+      opacity: 1;
+      position: static;
+      @include transition(opacity 1s ease-in false);
+   }
 }
-.smooth-transitions .main section.current-section
+
+// Switch to flexible layout when window < max-width.
+@media (max-width: $max-width)
 {
-   // Fade in the current section.
-   opacity: 1;
-   position: static;
-   @include transition(opacity 1s ease-in false);
+   .container { width: 100%; }
+}
+// Stop reserving space for Palmetto Homes logo when window gets to small.
+@media (max-width: 720px)
+{
+   .container { padding-right: 1em; }
+}
+
+// Set breakpoints to rearrange navigation links so there are still usable at
+// any size.
+@media (max-width: $max-width)
+{
+   nav ul li { margin: 0 1em; }
+}
+@media (max-width: 830px)
+{
+   nav ul li { margin: 0 0.5em; }
+}
+@media (max-width: 720px)
+{
+   //nav ul li { margin: 0 1.5em; }
+   nav ul li { margin: 0; width: 24%; }
+}
+@media (max-width: 500px)
+{
+   nav ul li { margin: 0; width: 32%; }
+}
+@media (max-width: 400px)
+{
+   nav ul li { margin: 0; margin-bottom: 0.5em; width: 100%; }
+}
+
+// Reduce number of columns in feature list when window gets smaller.
+@media (max-width: 850px)
+{
+   .feature-list > li { width: 100%; }
+}
+
+// Make sure footer is still readable when window is small.
+@media (max-width: 750px)
+{
+   footer
+   {
+      .company-line, .contact-line, h2
+      {
+         float: none;
+         text-align: center;
+      }
+   }
 }
