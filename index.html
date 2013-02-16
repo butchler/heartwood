@@ -13,6 +13,8 @@
       <link href="./stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
 
       <link href='http://fonts.googleapis.com/css?family=Qwigley' rel='stylesheet' type='text/css'>
+
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
    </head>
    <body>
       <div class="container">
@@ -37,9 +39,9 @@
             <section class="lot-layouts">
                <a id="layouts"></a>
 
-               <h1>Lot Layouts</h1>
-
                <div class="content">
+                  <h1>Lot Layouts</h1>
+
                   <img class="lot-layouts-image" alt="Lot Layouts" src="images/lot-layouts.jpg" />
 
                   <p>Perfectly set in the serenity of Florida's St. John's County, Heartwood at St.Augustine combines affordable luxury with a lifestyle we all aspire to attain.</p>
@@ -55,9 +57,9 @@
             <section class="directions">
                <a id="directions"></a>
 
-               <h1>Directions</h1>
-
                <div class="content">
+                  <h1>Directions</h1>
+
                   <div class="map">
                      <h2>Built with pride by our family because your family deserves the best.</h2>
                      <span class="description">Located in St. Augustine, FL on convenient Wildwood Drive, half way between US-1 and SR 207.</span>
@@ -76,11 +78,12 @@
             </section>
 
             <section class="features">
-               <a id="features"></a>
-
-               <h1>Heartwood Homes Exclusive Features</h1>
+               <!-- <a id="features"></a> -->
+               <a id="sales"></a>
 
                <div class="content">
+                  <h1>Heartwood Homes Exclusive Features</h1>
+
                   <ul class="feature-list">
                      <li class="decorator-options">
                         <h3>Special Decorator Selections &amp; Options</h3>
@@ -196,7 +199,7 @@
                      </li>
                   </ul>
 
-                  <span class="key">* Per Elevation&nbsp;&nbsp;** Per Plan&nbsp;&nbsp;Information is subject to change without notice</span>
+                  <span class="key">* Per Elevation&nbsp;&nbsp;** Per Plan, Information is subject to change without notice</span>
                </div>
             </section>
          </section>
@@ -207,8 +210,38 @@
             <span class="company-line">A proud achievment of Censim Developers, LLC</span>
             <span class="contact-line">For sales representative call 1 800.000.0000</span>
 
-            <span class="copyright-line">All Rights Reserved Censim Developers LLC &copy; 2013&nbsp;&nbsp;Site by ZardART.com</span>
+            <span class="copyright-line">All Rights Reserved Censim Developers LLC &copy; 2013&nbsp;&nbsp;Site by <a href="http://zardart.com">ZardART.com</a></span>
          </footer>
       </div>
+
+      <script>
+         // Transition to a section using CSS transitions through the
+         // .current-section class.
+         function goToSection(hash)
+         {
+            $('.smooth-transitions section').removeClass('current-section');
+            $(hash).parent().addClass('current-section');
+         }
+
+         // Do smooth transition on same-page links.
+         $('a').click(function() {
+            var href = $(this).attr('href');
+            if (href === undefined || href[0] !== '#')
+               return true;
+
+            // Smoothly transition between sections.
+            goToSection(href);
+
+            // Smooth-scroll to same-page links.
+            $('html, body').animate({ scrollTop: $(href).offset().top },
+               { complete: function() { window.location.hash = href; } });
+
+            return false;
+         });
+
+         // Fade in banner
+         $('body').addClass('smooth-transitions');
+         setTimeout(function() { goToSection(window.location.hash || '#home'); }, 0);
+      </script>
    </body>
 </html>
